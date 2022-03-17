@@ -45,7 +45,7 @@ fun ProfileScreen() {
         Spacer(modifier = Modifier.height(10.dp))
         ProfileSection()
         Spacer(modifier = Modifier.height(25.dp))
-        ButtonSection()
+        ButtonSection(modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(25.dp))
         HighlightSection(
             highlights = listOf(
@@ -303,7 +303,7 @@ fun ButtonSection(modifier: Modifier = Modifier) {
     val height = 30.dp
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier
     ) {
         ActionButton(
             text = "Following",
@@ -327,8 +327,6 @@ fun ButtonSection(modifier: Modifier = Modifier) {
         ActionButton(
             icon = Icons.Default.KeyboardArrowDown,
             modifier = Modifier
-                .defaultMinSize(minWidth = minWidth)
-                .height(height)
                 .size(height)
         )
     }
@@ -345,7 +343,7 @@ fun ActionButton(
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 1.dp,
                 color = Color.LightGray,

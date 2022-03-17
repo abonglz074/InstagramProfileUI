@@ -4,16 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,9 +29,12 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ProfileScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(name = "instagram_login", modifier = Modifier.padding(10.dp))
-        Spacer(modifier = Modifier.height(4.dp))
+        TopBar(name = "instagram_login")
+        Spacer(modifier = Modifier.height(10.dp))
         ProfileSection()
+        Spacer(modifier = Modifier.height(25.dp))
+        ButtonSection(modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.height(25.dp))
     }
 }
 
@@ -90,6 +96,7 @@ fun ProfileSection(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(16.dp))
             StatSection(modifier = Modifier.weight(7f)) //Image = 30 % of width, StatSection = 70 % of width
         }
+        Spacer(modifier = Modifier.height(10.dp))
         ProfileDescription(
             displayName = "Just a typical guy who lives in Russia",
             description = "Doing my best to make a programmer career\n" +
@@ -210,6 +217,75 @@ fun ProfileDescription(
                 },
                 letterSpacing = letterSpacing,
                 lineHeight = lineHeight
+            )
+        }
+    }
+}
+
+//Row below description
+@Composable
+fun ButtonSection(modifier: Modifier = Modifier) {
+    val minWidth = 95.dp
+    val height = 30.dp
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = modifier
+    ) {
+        ActionButton(
+            text = "Following",
+            icon = Icons.Default.KeyboardArrowDown,
+            modifier = Modifier
+                .defaultMinSize(minWidth = minWidth)
+                .height(height)
+        )
+        ActionButton(
+            text = "Message",
+            modifier = Modifier
+                .defaultMinSize(minWidth = minWidth)
+                .height(height)
+        )
+        ActionButton(
+            text = "Email",
+            modifier = Modifier
+                .defaultMinSize(minWidth = minWidth)
+                .height(height)
+        )
+        ActionButton(
+            icon = Icons.Default.KeyboardArrowDown,
+            modifier = Modifier
+                .defaultMinSize(minWidth = minWidth)
+                .height(height)
+                .size(height)
+        )
+    }
+
+}
+//Composable function that helps us to create some buttons below description
+@Composable
+fun ActionButton(
+    modifier: Modifier = Modifier,
+    text: String? = null,
+    icon: ImageVector? = null
+) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.LightGray,
+                shape = RoundedCornerShape(5.dp)
+            )
+            .padding(6.dp)
+    ) {
+        if (text != null) {
+            Text(text = text, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+        }
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color.Black
             )
         }
     }

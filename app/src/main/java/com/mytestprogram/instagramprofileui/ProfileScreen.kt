@@ -3,6 +3,7 @@ package com.mytestprogram.instagramprofileui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,6 +37,29 @@ fun ProfileScreen() {
         Spacer(modifier = Modifier.height(25.dp))
         ButtonSection(modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(25.dp))
+        HighlightSection(
+            highlights = listOf(
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.youtube),
+                    text = "YouTube"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.qa),
+                    text = "Q&A"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.discord),
+                    text = "Discord"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.telegram),
+                    text = "Telegram"
+                ),
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+        )
     }
 }
 
@@ -260,6 +285,7 @@ fun ButtonSection(modifier: Modifier = Modifier) {
     }
 
 }
+
 //Composable function that helps us to create some buttons below description
 @Composable
 fun ActionButton(
@@ -290,3 +316,31 @@ fun ActionButton(
         }
     }
 }
+
+//Row with Circle Icons
+@Composable
+fun HighlightSection(
+    modifier: Modifier = Modifier,
+    highlights: List<StoryHighlight>
+) {
+    LazyRow(modifier = modifier) {
+        items(highlights.size) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(end = 15.dp)
+            ) {
+                RoundImage(
+                    image = highlights[it].image,
+                    modifier = Modifier.size(70.dp)
+                )
+                Text(
+                    text = highlights[it].text,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+    }
+}
+
